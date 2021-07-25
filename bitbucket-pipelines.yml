@@ -1,0 +1,25 @@
+# This is a sample build configuration for PHP.
+# Check our guides at https://confluence.atlassian.com/x/e8YWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+#- apt-get update
+#- apt-get -qq install git-ftp
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: renetalk/php7-phpunit-composer-git-ftp
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - composer
+        script:
+          # Setup
+          #- git config git-ftp.url "$FTP_HOST"
+          #- git config git-ftp.user "$FTP_USERNAME"
+          #- git config git-ftp.password "$FTP_PASSWORD"
+          #- apt-get update
+          #- apt-get -qq install git-ftp
+          ## Upload all files
+          #- git ftp init
+          #- git ftp init -u "$FTP_USERNAME" -p "$FTP_PASSWORD" $FTP_HOST
+          - git ftp push --force -b master --user $FTP_USERNAME --passwd $FTP_PASSWORD $FTP_HOST
